@@ -1,28 +1,13 @@
 #usr/bin/python
 # -*-coding=utf-8 -*-
 
-# Requirements: Python 3.6
-#               jieba
+# Requirements: Python 3.5.2 (default, Nov 17 2016, 17:05:23) 
+#               jieba 0.39
 
 import jieba
 import numpy as np
-import pandas as pd
 import csv
 
-# file_object2=open('D:\A仲敏2015\python_code\\advice.csv').read().split('\n')  #一行行的读取内容
-# Rs2=[] #建立存储分词的列表
-# for i in range(len(file_object2)):
-#     result=[]
-#     seg_list = jieba.cut(file_object2[i])
-#     for w in seg_list :#读取每一行分词
-#         result.append(w)
-#     Rs2.append(result)#将该行分词写入列表形式的总分词列表
-# #写入CSV
-# file=open('D:\Azhongmin2015\python_code\\result2.csv','w')
-# writer = csv.writer(file)#定义写入格式
-# writer.writerows(Rs2)#按行写入
-# #file.write(str(Rs))
-# file.close()
 
 # Remove English commas in Chinese sentences
 def preprocess(filename):
@@ -56,7 +41,7 @@ def segment(filename):
         tmpline.pop(0)
         tmpline.pop(0) ## 弹出前两个元素
         # print(i)
-        result.append('/'.join(jieba.cut(tmpline[0])))
+        result.append(' '.join(jieba.cut(tmpline[0])))
         Rs2.append(result)#将该行分词写入列表形式的总分词列表
     #写入CSV
     file=open('AfterSegmentation.csv', 'w', encoding="utf-8", newline='')
