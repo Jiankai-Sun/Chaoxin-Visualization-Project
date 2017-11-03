@@ -68,5 +68,7 @@ def clean(filename):
     file.close()
 
 if __name__ == '__main__':
+#    preprocess('example.csv')
+#    segment('AfterPreprocessed.csv')
     clean('AfterSegmentation_space0.1.txt')
 
