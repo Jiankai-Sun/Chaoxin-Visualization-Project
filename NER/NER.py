@@ -7,7 +7,7 @@
 import jieba
 import numpy as np
 import csv
-
+import re
 
 # Remove English commas in Chinese sentences
 def preprocess(filename):
@@ -49,6 +49,21 @@ def segment(filename):
     writer.writerows(Rs2)#按行写入
     file.close()
 
+
+def clean(filename):
+    lines = open(filename, encoding="utf-8").read().split('\n')  # Read line-by-line
+    Rs2 = []  # 总分词列表
+    for i in range(len(lines)):
+        result=[]
+        # Rs2.append(lines[i])
+        string = re.findall(']A-Za-z0-9\x80-\xff]+', lines[i])
+        Rs2.append(string)#将该行分词写入列表形式的总分词列表
+    #写入CSV
+    file=open('cleaned.csv', 'w', encoding="utf-8", newline='')
+    writer = csv.writer(file)#定义写入格式
+    writer.writerows(Rs2)#按行写入
+    file.close()
+
 if __name__ == '__main__':
-    segment('AfterPreprocessed.csv')
+    clean('AfterSegmentation_space0.1.txt')
 
