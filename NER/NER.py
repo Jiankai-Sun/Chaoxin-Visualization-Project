@@ -56,8 +56,11 @@ def clean(filename):
     for i in range(len(lines)):
         result=[]
         # Rs2.append(lines[i])
-        string = re.findall(']A-Za-z0-9\x80-\xff]+', lines[i])
-        Rs2.append(string)#将该行分词写入列表形式的总分词列表
+        # string = re.findall('[A-Za-z0-9\x80-\xff]+', lines[i])
+        line = re.sub('[【】？。，、《》]+', '', lines[i])
+        strlist = re.findall(u"[\u2E80-\u9FFF]+", line)
+        result.append(' '.join(strlist))	
+        Rs2.append(result)#将该行分词写入列表形式的总分词列表
     #写入CSV
     file=open('cleaned.csv', 'w', encoding="utf-8", newline='')
     writer = csv.writer(file)#定义写入格式
