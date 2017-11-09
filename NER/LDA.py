@@ -717,7 +717,7 @@ if __name__ == "__main__":
     if test_type == "train":
         model = LdaModel()
         # 由prior_file决定是否带有先验知识
-        model.init_train_model("data/", "model", current_iter=0, iters_num="auto", topics_num=10, data_file="corpus.txt")
+        model.init_train_model("data/", "model", current_iter=0, iters_num="auto", topics_num=10, data_file="data/corpus.txt")
         # model.init_train_model("data/", "model", current_iter=0, iters_num="auto", topics_num=10, data_file="corpus.txt", prior_file="prior.twords")
         model.begin_gibbs_sampling_train()
     elif test_type == "inference":

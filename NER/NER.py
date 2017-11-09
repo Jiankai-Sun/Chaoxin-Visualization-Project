@@ -81,14 +81,16 @@ def segment2(filename):
         tmpline.pop(0) ## 弹出前两个元素
         sentence_seged = jieba.cut(tmpline[0]) 
         stopwords = stopwordslist('./stopwords.txt')  # 这里加载停用词的路径 
-        outstr = ''  
+        outstr = ''
         for word in sentence_seged:  
             if word not in stopwords:  
-                if word != '\t':  
-                    outstr += re.findall(u"[\u2E80-\u9FFF]+", word) 
-                    outstr += " "  
-
-        Rs2.append(outstr)#将该行分词写入列表形式的总分词列表
+                if word != '\t' and re.findall(u"[\u2E80-\u9FFF]+", word)!=[]:  
+                    outstr += word 
+        #            outstr += " " 
+        result=[]
+        result.append(' '.join(jieba.cut(outstr)))
+        Rs2.append(result)#将该行分词写入列表形式的总分词列表
+        # print(Rs2)
     #写入CSV
     file=open('AfterSegmentation2.csv', 'w', encoding="utf-8", newline='')
     writer = csv.writer(file)#定义写入格式
