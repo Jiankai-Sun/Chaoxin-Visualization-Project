@@ -710,24 +710,26 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format="%(asctime)s\t%(levelname)s\t%(message)s")
 
     # train或者inference
-    test_type = "train"
-    # test_type = "inference"
+    # test_type = "train"
+    test_type = "inference"
 
     # 测试新模型
     if test_type == "train":
         model = LdaModel()
         # 由prior_file决定是否带有先验知识
-        model.init_train_model("data/", "model", current_iter=0, iters_num="auto", topics_num=10, data_file="data/corpus.txt")
+        # model.init_train_model("data/", "model", current_iter=0, iters_num="auto", topics_num=10, data_file="data/corpus.txt")
+        model.init_train_model("data/", "model", current_iter=0, iters_num=10, topics_num=10, data_file="data/corpus.txt")
         # model.init_train_model("data/", "model", current_iter=0, iters_num="auto", topics_num=10, data_file="corpus.txt", prior_file="prior.twords")
         model.begin_gibbs_sampling_train()
     elif test_type == "inference":
         model = LdaModel()
-        model.init_inference_model(LdaModel().init_train_model("data/", "model", current_iter=134))
+        # model.init_inference_model(LdaModel().init_train_model("data/", "model", current_iter=134))
+        model.init_inference_model(LdaModel().init_train_model("data/", "model", current_iter=10))
         data = [
             "cn	咪咕 漫画 咪咕 漫画 漫画 更名 咪咕 漫画 资源 偷星 国漫 全彩 日漫 实时 在线看 随心所欲 登陆 漫画 资源 黑白 全彩 航海王",
             "co	aircloud aircloud 硬件 设备 wifi 智能 手要 平板电脑 电脑 存储 aircloud 文件 远程 型号 aircloud 硬件 设备 wifi"
         ]
         result = model.inference_data(data)
-
+        print(result)
     # 退出程序
     exit()

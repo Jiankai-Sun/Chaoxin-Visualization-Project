@@ -107,9 +107,17 @@ def tag(filename):
         tmpline.pop(0)
         tmpline.pop(0) ## 弹出前两个元素
         result=[]
+        p1=r"(\d{4}[年//-])?(\d{1,2}[月//-])?\d{1,2}[日:：](\d{1,2}[时h：:])?(\d{1,2}[分m:：])?(\d{1,2}[秒s])?"
+        # if re.search(r"^\d{4}年\d{2}月\d{2}日", tmpline)
+        if re.search(p1, tmpline)
+            match = re.search(p1, tmpline)
+            print(match.group()) 
+        result.append(match.group())
+
         for j in range(len(dictionary)):
             sep_dictionary = dictionary[j].split(',')
             print(sep_dictionary)
+            print(sep_dictionary[1])
             if sep_dictionary[1] in tmpline
                 result.append(dictionary[j])
         Rs2.append(result)#将该行分词写入列表形式的总分词列表
