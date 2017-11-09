@@ -67,8 +67,38 @@ def clean(filename):
     writer.writerows(Rs2)#按行写入
     file.close()
 
+def stopwordslist(filepath):  
+    stopwords = [line.strip() for line in open(filepath, 'r', encoding='utf-8').readlines()]  
+    return stopwords
+
+def segment2(filename):
+    lines = open(filename, encoding="utf-8").read().split('\n')  # Read line-by-line
+    Rs2 = []  # 总分词列表
+    for i in range(len(lines)):
+        # Rs2.append(lines[i])
+        tmpline = lines[i].split(',')  # 读取每一行分词
+        tmpline.pop(0)
+        tmpline.pop(0) ## 弹出前两个元素
+        sentence_seged = jieba.cut(tmpline[0]) 
+        stopwords = stopwordslist('./stopwords.txt')  # 这里加载停用词的路径 
+        outstr = ''  
+        for word in sentence_seged:  
+            if word not in stopwords:  
+                if word != '\t':  
+                    outstr += re.findall(u"[\u2E80-\u9FFF]+", word) 
+                    outstr += " "  
+
+        Rs2.append(outstr)#将该行分词写入列表形式的总分词列表
+    #写入CSV
+    file=open('AfterSegmentation2.csv', 'w', encoding="utf-8", newline='')
+    writer = csv.writer(file)#定义写入格式
+    writer.writerows(Rs2)#按行写入
+    file.close()
+
+
 if __name__ == '__main__':
 #    preprocess('example.csv')
 #    segment('AfterPreprocessed.csv')
-    clean('AfterSegmentation_space0.1.txt')
+    # clean('AfterSegmentation_space0.1.txt')
+    segment2('AfterPreprocessed.csv')
 
